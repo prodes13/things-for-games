@@ -10,8 +10,8 @@ const ROWS = canvas.height / resolution;
 
 function buildGrid() {
     return new Array(COLS).fill(null)
-        .map(() => new Array(ROWS).fill(null)
-        .map(() => Math.floor(Math.random() * 2)));
+        .map(() => new Array(ROWS).fill(null))
+        .map(() => Math.floor(Math.random() * 2));
 }
 
 let grid = buildGrid();

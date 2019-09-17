@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Motion, Particles and More</title>
+    <script>
+    window.onload = function() {
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = 400;
+        canvas.height = 400;
+
+        document.body.appendChild(canvas);
+
+        clearCanvas();
+
+        function clearCanvas() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        let posX = 20,
+            posY = canvas.height / 2,
+            vx = 5,
+            vy = -10,
+            gravity = 1;
+
+        setInterval(function() {
+            clearCanvas();
+            posX += vx;
+            posY += vy;
+            vy += gravity;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(posX, posY, 10, 10); 
+        }, 30);
+    };
+    </script>
+    <style>
+        body, html {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>
+
+
+<!-- 
+
+https://www.youtube.com/watch?v=YCI8uqePkrc
+
+ -->
