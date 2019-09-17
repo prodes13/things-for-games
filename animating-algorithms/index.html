@@ -2,7 +2,7 @@
 <head>
     <title>Animating algorithms</title>
     <script>
-    N = 250; // Array Size
+    N = 100; // Array Size
     XYs = 5; // Element Visual Size
     Xp = 1; // Start Pos X
     Yp = 1; // Start Pos Y
@@ -29,28 +29,34 @@
     }
 
     function rainbow(x) {
-    var m = map_range(x, 0, N, 0, 359);
-    return 'hsl(' + m + ',100%,50%)';
+        var m = map_range(x, 0, N, 0, 359);
+        return 'hsl(' + m + ',100%,50%)';
     }
 
     function init() {
-    canvas = document.getElementById('canvas');
-    l.shuffle();
-    draw();
-    bubbleSort(l);
+        canvas = document.getElementById('canvas');
+        l.shuffle();
+        var sort = bubbleSort(l);
+        // an anim function triggered every 60th of a second
+        function anim(){
+            requestAnimationFrame(anim);
+            draw();
+            sort.next(); // call next iteration of the bubbleSort function
+        }
+        anim();
     }
 
     function draw() {
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-        for (var i = 0; i < l.length; i++) {
-        ctx.fillStyle = rainbow(l[i]);
-        ctx.fillRect((Xp * i) * XYs, Yp * XYs, XYs, XYs);
+        if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+            for (var i = 0; i < l.length; i++) {
+            ctx.fillStyle = rainbow(l[i]);
+            ctx.fillRect((Xp * i) * XYs, Yp * XYs, XYs, XYs);
+            }
         }
     }
-    }
 
-    function bubbleSort(a) {
+    function* bubbleSort(a) { // * is magic
     var swapped;
     do {
         swapped = false;
@@ -60,16 +66,16 @@
             a[i] = a[i + 1];
             a[i + 1] = temp;
             swapped = true;
-            draw();
-            setTimeout(function() {}, 10);
+            yield swapped; // pause here
         }
         }
     } while (swapped);
     }
+    init();
     </script>
 </head>
 <body onload="init();">
-  <canvas id="canvas" width="1500" height="1500"></canvas>
+  <canvas id="canvas" width="500" height="100"></canvas>
 </body>
 
 </html>

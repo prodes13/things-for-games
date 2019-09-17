@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Animating algorithms</title>
+    <script>
+    let canvas, ctx;
+    let a = [23, 5, 43, 3, 12, 1, 2, 6];
+
+    function init() {
+        canvas = document.getElementById('canvas');
+        var sort = bubbleSort(a);
+        function anim(){
+            draw();
+            sort.next(); // call next iteration of the bubbleSort function
+        }
+        anim();
+        setInterval(anim, 1000);
+    }
+
+    function draw() {
+        if (canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, 800, 600);
+            for (var i = 0; i < a.length; i++) {
+                ctx.font = "30px Arial";
+                ctx.fillText(a[i], 100 * i, 50); 
+            }
+        }
+    }
+
+    function* bubbleSort(a) { // * is magic
+        var swapped;
+        do {
+            swapped = false;
+            for (var i = 0; i < a.length - 1; i++) {
+            if (a[i] > a[i + 1]) {
+                var temp = a[i];
+                a[i] = a[i + 1];
+                a[i + 1] = temp;
+                swapped = true;
+                yield swapped; // pause here
+            }
+            }
+        } while (swapped);
+    }
+
+    init();
+    </script>
+</head>
+<body onload="init();">
+    <h1>Bubble sorting with animation</h1>
+  <canvas id="canvas" width="800" height="400"></canvas>
+</body>
+
+</html>
