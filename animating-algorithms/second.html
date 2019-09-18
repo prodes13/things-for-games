@@ -3,7 +3,36 @@
     <title>Animating algorithms</title>
     <script>
     let canvas, ctx;
-    let a = [23, 5, 43, 3, 12, 1, 2, 6];
+    let a = [
+        {
+            value: 23,
+            selected: false
+        }, {
+            value: 5,
+            selected: false
+        }, {
+            value: 43,
+            selected: false
+        },{
+            value: 3,
+            selected: false
+        },{
+            value: 12,
+            selected: false
+        },{
+            value: 2,
+            selected: false
+        },{
+            value: 6,
+            selected: false
+        },{
+            value: 7,
+            selected: false
+        },{
+            value: 1,
+            selected: false
+        }
+        ];
 
     function init() {
         canvas = document.getElementById('canvas');
@@ -22,8 +51,10 @@
             
             ctx.clearRect(0, 0, 800, 600);
             for (var i = 0; i < a.length; i++) {
-                ctx.font = "30px Arial";
-                ctx.fillText(a[i], 100 * i, 50); 
+                ctx.font = "15px Arial";
+                ctx.fillStyle = a[i].selected ? "#FF0000" : "#0000ff";
+                ctx.fillText(a[i].value, 70 * i, 50); 
+                ctx.fillRect(70 * i, 500, 10, -a[i].value*10);
             }
         }
     }
@@ -33,12 +64,15 @@
         do {
             swapped = false;
             for (var i = 0; i < a.length - 1; i++) {
-            if (a[i] > a[i + 1]) {
-                var temp = a[i];
-                a[i] = a[i + 1];
-                a[i + 1] = temp;
-                swapped = true;
-                yield swapped; // pause here
+                a[i+1].selected = true;
+                a[i].selected = false;
+                a[a.length-1].selected = false;
+                if (a[i].value > a[i + 1].value) {
+                    var temp = a[i].value;
+                    a[i].value = a[i + 1].value;
+                    a[i + 1].value = temp;
+                    swapped = true;
+                    yield swapped; // pause here
             }
             }
         } while (swapped);
@@ -49,7 +83,7 @@
 </head>
 <body onload="init();">
     <h1>Bubble sorting with animation</h1>
-  <canvas id="canvas" width="800" height="400"></canvas>
+  <canvas id="canvas" width="800" height="600"></canvas>
 </body>
 
 </html>
