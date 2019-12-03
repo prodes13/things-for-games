@@ -11,6 +11,7 @@ class SlinglyLinkedList {
         this.tail = null;
         this.length = 0;
     }
+    // Adding Element at the end of an list.
     push(val) {
         var newNode = new Node(val);
         if(!this.head) {
@@ -23,6 +24,7 @@ class SlinglyLinkedList {
         this.length++;
         return this;
     }
+    // Removing elements from the end of an list
     pop() {
         if(!this.head) return undefined;
         var current = this.head;
@@ -40,6 +42,7 @@ class SlinglyLinkedList {
         }
         return current;
     }
+    // Removing elements at the beginning of an list
     shift() {
       if(!this.head) return undefined;
       var currentHead = this.head;
@@ -50,6 +53,7 @@ class SlinglyLinkedList {
       }
       return currentHead;
     }
+    // Adding elements at the front of an list
     unshift() {
       var newNode = new Node(val);
       if(!head) {
@@ -62,7 +66,7 @@ class SlinglyLinkedList {
       this.length++;
       return this;
     }
-
+    // listing list
     traverse() {
         var current = this.head;
         while(current) {
