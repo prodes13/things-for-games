@@ -66,6 +66,28 @@ class SlinglyLinkedList {
       this.length++;
       return this;
     }
+    // show the element at index position
+    get(index) {
+      if(index < 0 || index >= this.length) return null;
+      var counter = 0;
+      var current = this.head;
+      while(counter !== index) {
+        current = current.nex;
+        counter++;
+      }
+      return current;
+    }
+    // take a node and update it's value
+    set(index, val) {
+        var foundNode = this.get(index);
+        if(foundNode) {
+          foundNode.val = val;
+          return true;
+        }
+        return false;
+    }
+    // inserting an element
+
     // listing list
     traverse() {
         var current = this.head;
