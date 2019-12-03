@@ -45,8 +45,24 @@ class SlinglyLinkedList {
       var currentHead = this.head;
       this.head = currentHead.next;
       this.length--;
+      if(this.length ===0) {
+          this.tail = null;
+      }
       return currentHead;
     }
+    unshift() {
+      var newNode = new Node(val);
+      if(!head) {
+        this.head = newNode;
+        this.tail = this.head;
+      } else {
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+      this.length++;
+      return this;
+    }
+
     traverse() {
         var current = this.head;
         while(current) {
