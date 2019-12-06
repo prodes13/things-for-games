@@ -88,7 +88,7 @@ class SlinglyLinkedList {
     }
     // inserting an element
     insert(index, val) {
-      // with !! we are converting to a boolean, and returning one 
+      // with !! we are converting to a boolean, and returning one
       if(index<0 || index > this.length) return false;
       if(index === this.length) return !!this.push(val);
       if(index === 0) return !!this.unshift(val);
@@ -98,6 +98,27 @@ class SlinglyLinkedList {
       newNode.next = temp;
       this.length++;
       return true;
+    }
+    // remove and element
+    remove(index) {
+      if(index < 0 || index >= this.length) return undefined;
+      if(index === 0) return this.shift();
+      if(index === this.length-1) return this.pop();
+      var prevNode = this.get(index - 1);
+      var removed = prevNode.next;
+      prevNode.next = removed.next;
+      this.length--;
+      return removed;
+    }
+    // printing as an array
+    print() {
+      var arr = [];
+      var current = this.head;
+      while(current) {
+        arr.push(current.val);
+        current = current.next;
+      }
+      console.log(arr);
     }
     // listing list
     traverse() {
