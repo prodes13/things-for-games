@@ -87,7 +87,18 @@ class SlinglyLinkedList {
         return false;
     }
     // inserting an element
-
+    insert(index, val) {
+      // with !! we are converting to a boolean, and returning one 
+      if(index<0 || index > this.length) return false;
+      if(index === this.length) return !!this.push(val);
+      if(index === 0) return !!this.unshift(val);
+      var prev = this.get(index-1);
+      var temp = prev.next;
+      prev.next = newNode;
+      newNode.next = temp;
+      this.length++;
+      return true;
+    }
     // listing list
     traverse() {
         var current = this.head;
