@@ -110,6 +110,20 @@ class SlinglyLinkedList {
       this.length--;
       return removed;
     }
+    reverse() {
+      var node = this.head;
+      this.head = this.tail;
+      this.tail = node;
+      var next;
+      var prev = null;
+      for(var i=0; i < this.length; i++) {
+        next = node.next;
+        node.next = prev;
+        prev = node;
+        node = next;
+      }
+      return this;
+    }
     // printing as an array
     print() {
       var arr = [];
@@ -131,12 +145,16 @@ class SlinglyLinkedList {
 }
 
 var list = new SlinglyLinkedList();
-list.push("Florin");
-list.push("Ciobotaru")
+list.push("1");
+list.push("2")
+list.push("3")
+list.push("4")
+list.push("5")
 console.log(list)
 console.log(list.length)
 
-console.log(list.traverse())
+console.log("Normal ",list.traverse())
+console.log("Reversed ",list.reverse())
 list.pop();
 // var first = new Node("hi");
 // first.next = new Node("how");
