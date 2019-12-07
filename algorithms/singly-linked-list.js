@@ -56,7 +56,7 @@ class SlinglyLinkedList {
     // Adding elements at the front of an list
     unshift() {
       var newNode = new Node(val);
-      if(!head) {
+      if(!this.head) {
         this.head = newNode;
         this.tail = this.head;
       } else {
@@ -72,7 +72,7 @@ class SlinglyLinkedList {
       var counter = 0;
       var current = this.head;
       while(counter !== index) {
-        current = current.nex;
+        current = current.next;
         counter++;
       }
       return current;
@@ -99,7 +99,7 @@ class SlinglyLinkedList {
       this.length++;
       return true;
     }
-    // remove and element
+    // remove an element
     remove(index) {
       if(index < 0 || index >= this.length) return undefined;
       if(index === 0) return this.shift();
