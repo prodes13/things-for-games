@@ -51,9 +51,9 @@ class BinarySearchTree {
         found = true;
       }
     }
+    if(!found) return false;
+    return current;
   }
-  if(!found) return false;
-  return current;
 }
 
 var tree = new BinarySearchTree();
