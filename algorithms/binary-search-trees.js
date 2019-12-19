@@ -10,6 +10,7 @@ class BinarySearchTree {
   constructor() {
     this.root = null;
   }
+  // because of return, we don't need else
   insert(value) {
     var newNode = new Node(value);
     if(this.root === null) {
@@ -18,13 +19,14 @@ class BinarySearchTree {
     } else {
       var current = this.root;
       while(true) {
+        if(value === current.value) return undefined;
         if(value < current.value) {
           if(current.left === null) {
             current.left = newNode;
             return this;
           } else {
             current = current.left;
-          }
+          } // because of return, we don't need else
         } else if(value > current.value) {
           if(current.right === null) {
             current.right = newNode;
