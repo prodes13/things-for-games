@@ -54,6 +54,7 @@ class BinarySearchTree {
     if(!found) return false;
     return current;
   }
+  // BREATH FIRST SEARCH
   BFS() {
     var data = [],
         queue = [],
@@ -65,10 +66,12 @@ class BinarySearchTree {
       data.push(node);
       if(node.left) queue.push(node.left);
       if(node.right) queue.push(node.right);
-      
+
     }
     return data;
   }
+  // DEPTH FIRST SEARCH -- PreOrder
+  
 }
 
 var tree = new BinarySearchTree();
