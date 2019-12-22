@@ -20,9 +20,19 @@ const tree = {
     {
       name: 'Zoe',
       children: [
-        { name: 'Kyle', children: [] },
+        { 
+          name: 'Kyle', 
+          children: [
+            {
+              name: 'Teddy',
+              children: []
+            }
+          ] 
+        },
         { name: 'Sophia', children: []}
       ]
     }
   ]
 }
+
+printChildrenRecursive(tree);
