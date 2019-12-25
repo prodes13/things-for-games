@@ -17,12 +17,60 @@ class Graph {
 				item => item !== vertex1
 			);
 	}
+	removeVertex(vertex) {
+		while(this.adjacencyList[vertex].length) {
+			const adjacentVertex = this.adjacencyList[vertex].pop();
+			this.removeEdge(vertex, adjacentVertex);
+		}
+		delete this.adjacencyList[vertex];
+	}
+	depthFirstRecursive(start) {
+		const result = [];
+		const visited = {};
+		// we are doing this, because otherwise it will be out of context
+		// we can't use this in our immediatly called function
+		const adjacencyList = this.adjacencyList;
+
+		(function dfs(vertex) {
+			if(!vertex) return null;
+			visited[vertex] = true;
+			result.push(vertex);
+			adjacencyList[vertex].forEach(neighbor => {
+				if(!visited[neighbor]) return dfs(neighbor)
+			});
+		})(start)
+		// immediatly called with argument
+		// this is the same with
+		// function dfs(){
+		// dfs(start)
+		return result;
+		}
 }
 
 let g = new Graph();
-g.addVertex("Dallas");
-g.addVertex("Tokyo");
-g.addVertex("Aspen");
-g.addEdge("Dallas", "Tokyo");
-g.addEdge("Dallas", "Aspen");
-g.removeEdge("Dallas", "Aspen");
+
+
+g.addVertex("A")
+g.addVertex("B")
+g.addVertex("C")
+g.addVertex("D")
+g.addVertex("E")
+g.addVertex("F")
+
+
+g.addEdge("A", "B")
+g.addEdge("A", "C")
+g.addEdge("B","D")
+g.addEdge("C","E")
+g.addEdge("D","E")
+g.addEdge("D","F")
+g.addEdge("E","F")
+g.depthFirstRecursive("A")
+
+//          A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        \   /
+//          F
