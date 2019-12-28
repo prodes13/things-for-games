@@ -1,50 +1,22 @@
-// https://www.youtube.com/watch?v=ZNH0MuQ51m4&list=PLRqwX-V7Uu6bePNiZLnglXUp2LXIjlCdb&index=2
-// 24
+// https://www.youtube.com/watch?v=KFEvF_ymuzY&list=PLRqwX-V7Uu6bePNiZLnglXUp2LXIjlCdb&index=3
+// 6
+
 var tree;
 function setup() {
-  noCanvas();
+  createCanvas(600, 400);
+  background(51);
+
   tree = new Tree();
-  tree.addValue(5);
-  tree.addValue(3);
-  tree.addValue(8);
-  tree.addValue(7);
-  tree.addValue(11);
-  console.log(tree);
-}
-
-function Tree() {
-  this.root = null;
-}
-
-Tree.prototype.traverse
-
-Tree.prototype.addValue = function(val) {
-  var n = new Node(val);
-  if(this.root === null) {
-    this.root = n;
-  } else {
-    this.root.addNode(n);
+  for(var i = 0; i < 10; i++) {
+    tree.addValue(floor(random(0, 100)));
   }
-}
+  console.log(tree);
+  tree.traverse();
 
-function Node(val) {
-  this.value = val;
-  this.left = null;
-  this.right = null;
-}
-
-Node.prototype.addNode = function(n) {
-  if(n.value < this.value) {
-    if(this.left === null) {
-      this.left = n;
-    } else {
-      this.left.addNode(n);
-    }
-  } else if(n.value > this.value) {
-    if(this.right === null) {
-      this.right = n;
-    } else {
-      this.right.addNode(n);
-    }
+  var result = tree.search(10);
+  if(result === null) {
+    console.log('Not found!');
+  } else {
+    console.log(this);
   }
 }
