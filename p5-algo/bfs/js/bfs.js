@@ -1,5 +1,5 @@
 // https://www.youtube.com/watch?v=-he67EEM6z0&list=PLRqwX-V7Uu6bePNiZLnglXUp2LXIjlCdb&index=5
-// 9 min
+// 16
 var data;
 var graph;
 
@@ -36,8 +36,9 @@ function setup() {
 
   }
 
+  var start = graph.setStart("Rachel McAdams");
   // var start = graph.setStart("Mickey Rourke");
-  var start = graph.setStart("Kevin Bacon");
+  // var start = graph.setStart("Kevin Bacon");
   var end = graph.setEnd("Kevin Bacon");
 
   console.log(graph);
@@ -48,9 +49,36 @@ function setup() {
   queue.push(start);
   while(queue.length > 0) {
     var current = queue.shift();
+    console.log(current.value);
     if(current === end) {
       console.log("Found!" + current.value);
+      break;
+    }
+    var edges = current.edges;
+    for(var i = 0; i < edges.length; i++) {
+      var neighbor = edges[i];
+      if(!neighbor.searched) {
+        neighbor.searched = true;
+        neighbor.parent = current;
+        queue.push(neighbor);
+      }
     }
   }
+  var path = [];
+  path.push(end);
+  var next = end.parent;
+  while(next !== null) {
+    path.push(next);
+    next = next.parent;
+  }
 
+var txt = '';
+  for(var i = path.length-1; i >= 0; i--) {
+    var n = path[i];
+    txt += n.value
+    if(i) {
+      txt += ' --> ';
+    }
+  }
+  createP(txt);
 }
