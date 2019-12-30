@@ -5,6 +5,13 @@ function Graph() {
   this.start = null;
 }
 
+Graph.prototype.reset = function() {
+  for(var i = 0; i < this.nodes.length; i++) {
+    this.nodes[i].searched = false;
+    this.nodes[i].parent = null;
+  }
+}
+
 Graph.prototype.setStart = function(actor) {
   this.start = this.graph[actor];
   return this.start;

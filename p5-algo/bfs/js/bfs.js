@@ -2,6 +2,7 @@
 // 16
 var data;
 var graph;
+var dropdown;
 
 function preload() {
   // Get the most recent earthquake in the database
@@ -14,6 +15,8 @@ function setup() {
   graph = new Graph();
   noCanvas();
   // console.log(data);
+  dropdown = createSelect();
+  dropdown.changed(bfs);
 
   var movies = data.movies;
 
@@ -28,6 +31,7 @@ function setup() {
       var actorNode = graph.getNode(actor);
       if(actorNode === undefined) {
         actorNode = new Node(actor);
+        dropdown.option(actor);
       }
 
       graph.addNode(actorNode);
@@ -35,50 +39,53 @@ function setup() {
     }
 
   }
+}
 
-  var start = graph.setStart("Rachel McAdams");
-  // var start = graph.setStart("Mickey Rourke");
-  // var start = graph.setStart("Kevin Bacon");
-  var end = graph.setEnd("Kevin Bacon");
+function bfs() {
+    graph.reset();
+    var start = graph.setStart(dropdown.value());
+    // var start = graph.setStart("Mickey Rourke");
+    // var start = graph.setStart("Kevin Bacon");
+    var end = graph.setEnd("Kevin Bacon");
 
-  console.log(graph);
+    console.log(graph);
 
-  var queue = [];
+    var queue = [];
 
-  start.searched = true;
-  queue.push(start);
-  while(queue.length > 0) {
-    var current = queue.shift();
-    console.log(current.value);
-    if(current === end) {
-      console.log("Found!" + current.value);
-      break;
-    }
-    var edges = current.edges;
-    for(var i = 0; i < edges.length; i++) {
-      var neighbor = edges[i];
-      if(!neighbor.searched) {
-        neighbor.searched = true;
-        neighbor.parent = current;
-        queue.push(neighbor);
+    start.searched = true;
+    queue.push(start);
+    while(queue.length > 0) {
+      var current = queue.shift();
+      console.log(current.value);
+      if(current === end) {
+        console.log("Found!" + current.value);
+        break;
+      }
+      var edges = current.edges;
+      for(var i = 0; i < edges.length; i++) {
+        var neighbor = edges[i];
+        if(!neighbor.searched) {
+          neighbor.searched = true;
+          neighbor.parent = current;
+          queue.push(neighbor);
+        }
       }
     }
-  }
-  var path = [];
-  path.push(end);
-  var next = end.parent;
-  while(next !== null) {
-    path.push(next);
-    next = next.parent;
-  }
-
-var txt = '';
-  for(var i = path.length-1; i >= 0; i--) {
-    var n = path[i];
-    txt += n.value
-    if(i) {
-      txt += ' --> ';
+    var path = [];
+    path.push(end);
+    var next = end.parent;
+    while(next !== null) {
+      path.push(next);
+      next = next.parent;
     }
-  }
-  createP(txt);
+
+  var txt = '';
+    for(var i = path.length-1; i >= 0; i--) {
+      var n = path[i];
+      txt += n.value
+      if(i) {
+        txt += ' --> ';
+      }
+    }
+    createP(txt);
 }
